@@ -10,9 +10,21 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/layout";
+import useSWR from "swr";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import Card from "../../elements/Card/Card";
+import { Habit } from "../../../common/types";
+
+const fetcher = async (uri: string) => {
+  const response = await fetch(uri);
+  return response.json();
+};
 
 const Dashboard = () => {
   const { user } = useUser();
+  const { data, error } = useSWR("/api/habits", fetcher);
+  if (error) return <div>oops... {error.message}</div>;
+  if (data === undefined) return <div>Loading...</div>;
   return (
     <Box>
       <Heading>Hi {user!.name}</Heading>
@@ -30,7 +42,14 @@ const Dashboard = () => {
           </LinkOverlay>
         </Link>
       </LinkBox>
+      <VStack align="stretch">
+        {data.habits.length > 0 ? (
+          data.habits.map((habit: Habit) => <Card title={habit.name} />)
+        ) : (
+          <Text>No Habits</Text>
+        )}
+      </VStack>
     </Box>
   );
 };
-export default Dashboard;
+export default withPageAuthRequired(Dashboard);
