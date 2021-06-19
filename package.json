@@ -9,7 +9,11 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.4.0",
+    "@chakra-ui/react": "^1.6.4",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "axios": "^0.21.1",
+    "framer-motion": "^4",
     "next": "10.2.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
