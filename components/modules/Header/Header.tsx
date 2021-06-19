@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Button, IconButton } from "@chakra-ui/button";
 import { useColorMode } from "@chakra-ui/color-mode";
@@ -9,14 +10,20 @@ const Header = () => {
   const { user } = useUser();
   return (
     <Flex alignItems="center" justifyContent="space-between" my={4}>
-      <Text
-        fontSize="xl"
-        textTransform="uppercase"
-        fontWeight="600"
-        letterSpacing={2}
-      >
-        Moodpraiser
-      </Text>
+      <LinkBox>
+        <Link href="/" passHref>
+          <LinkOverlay>
+            <Text
+              fontSize="xl"
+              textTransform="uppercase"
+              fontWeight="600"
+              letterSpacing={2}
+            >
+              Moodpraiser
+            </Text>
+          </LinkOverlay>
+        </Link>
+      </LinkBox>
       <HStack>
         {!user ? (
           <LinkBox>
