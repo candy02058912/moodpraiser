@@ -11,7 +11,7 @@ axios.defaults.method = "POST";
 export const queryUserByEmail = (email: string) => {
   const data = JSON.stringify({
     operation: "sql",
-    sql: SQLString.format(`SELECT * FROM dev.users where email = ?`, [email]),
+    sql: SQLString.format(`SELECT * FROM dev.users WHERE email = ?`, [email]),
   });
 
   return axios({ data })
