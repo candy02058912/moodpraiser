@@ -1,21 +1,35 @@
+import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Button } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout";
+import {
+  Box,
+  Heading,
+  LinkBox,
+  LinkOverlay,
+  Text,
+  VStack,
+} from "@chakra-ui/layout";
 
 const Dashboard = () => {
   const { user } = useUser();
   return (
     <Box>
-      <Heading>Dashboard</Heading>
-      <Flex>
-        <div>User: {JSON.stringify(user)}</div>
-      </Flex>
-      <VStack align="stretch">
-        <Button borderWidth="1px" borderRadius="lg" variant="ghost">
-          <AddIcon /> <Text ml={1}>Add a new task</Text>
-        </Button>
-      </VStack>
+      <Heading>Hi {user!.name}</Heading>
+      <LinkBox my={4}>
+        <Link href="/habit/new" passHref>
+          <LinkOverlay>
+            <Button
+              borderWidth="1px"
+              borderRadius="lg"
+              variant="ghost"
+              isFullWidth
+            >
+              <AddIcon /> <Text ml={1}>Add a new habit</Text>
+            </Button>
+          </LinkOverlay>
+        </Link>
+      </LinkBox>
     </Box>
   );
 };
