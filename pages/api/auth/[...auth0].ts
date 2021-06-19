@@ -12,11 +12,12 @@ const afterCallback = async (
 ) => {
   const { user } = session;
   const dbUserQuery: DBUser[] = await queryUserByEmail(user.email);
-
+  let dbUser: DBUser;
   if (dbUserQuery.length === 0) {
-    createUser(user);
+    const resp = await createUser(user);
+    dbUser = { uid: resp.inserted_hashes[0] };
   } else {
-    const dbUser = dbUserQuery[0];
+    dbUser = dbUserQuery[0];
     if (dbUser.provider !== extractProvider(user.sub)) {
       throw new AuthError(
         MISMATCHED_PROVIDER.message,
@@ -24,6 +25,7 @@ const afterCallback = async (
       );
     }
   }
+  user.uid = dbUser.uid;
   return session;
 };
 
