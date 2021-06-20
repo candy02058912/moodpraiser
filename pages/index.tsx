@@ -20,7 +20,7 @@ const Main = () => {
   if (!user) {
     return <HomePage />;
   }
-  return <Dashboard />;
+  return <Dashboard user={user} />;
 };
 
 export default function Home() {
