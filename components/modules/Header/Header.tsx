@@ -4,6 +4,7 @@ import { Button, IconButton } from "@chakra-ui/button";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Flex, HStack, LinkBox, LinkOverlay, Text } from "@chakra-ui/layout";
+import SvgMoodPraiser from "../../assets/SvgMoodPraiser";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -13,14 +14,7 @@ const Header = () => {
       <LinkBox>
         <Link href="/" passHref>
           <LinkOverlay>
-            <Text
-              fontSize="xl"
-              textTransform="uppercase"
-              fontWeight="600"
-              letterSpacing={2}
-            >
-              Moodpraiser
-            </Text>
+            <SvgMoodPraiser width={165} height={30} />
           </LinkOverlay>
         </Link>
       </LinkBox>
