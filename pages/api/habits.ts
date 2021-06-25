@@ -5,7 +5,7 @@ export default withApiAuthRequired(async function handler(req, res) {
   const { user } = getSession(req, res) as Session;
   switch (req.method) {
     case "GET":
-      const habits = await queryHabitsByUID(user.uid);
+      const habits = await queryHabitsByUID(user.uid, { withRecord: true });
       res.json({ habits });
       break;
     case "POST":
