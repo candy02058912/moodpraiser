@@ -28,17 +28,24 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
     .then(function (response) {
       if (withRecord) {
         return sortBy(
-          response.data.reduce((result, value, key) => {
+          response.data.reduce(
             (
-              result[value.id] ||
-              (result[value.id] = {
-                id: value.id,
-                name: value.name,
-                records: { [value.record_create_time]: { mood: value.mood } },
-              })
-            ).records[value.record_create_time] = { mood: value.mood };
-            return result;
-          }, {}),
+              result: { [key: string]: any },
+              value: { [key: string]: any },
+              key: string
+            ) => {
+              (
+                result[value.id] ||
+                (result[value.id] = {
+                  id: value.id,
+                  name: value.name,
+                  records: { [value.record_create_time]: { mood: value.mood } },
+                })
+              ).records[value.record_create_time] = { mood: value.mood };
+              return result;
+            },
+            {}
+          ),
           "create_time"
         );
       }
