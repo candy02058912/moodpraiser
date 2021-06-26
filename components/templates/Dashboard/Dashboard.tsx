@@ -4,7 +4,6 @@ import { Button } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Center,
   Heading,
   LinkBox,
   LinkOverlay,
@@ -18,58 +17,14 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Card from "../../elements/Card/Card";
 import { Habit, Mood, Record } from "../../../common/types";
 import EmojiGroup from "../../elements/EmojiGroup/EmojiGroup";
-import { eachDayOfInterval, startOfWeek, endOfWeek, format } from "date-fns";
 import { Collapse } from "@chakra-ui/transition";
 import { useState } from "react";
 import axios from "axios";
-import MoodIcon from "../../elements/EmojiGroup/MoodIcon";
+import TrackCalendar from "../../modules/TrackCalendar/TrackCalendar";
 
 const fetcher = async (uri: string) => {
   const response = await fetch(uri);
   return response.json();
-};
-
-const TrackCalendarDay = ({ day, mood }) => {
-  return (
-    <Box borderRadius="lg" borderWidth="1px" p={2}>
-      <VStack>
-        <Text size="md">{day}</Text>
-        {mood ? (
-          <MoodIcon mood={mood} />
-        ) : (
-          <Box w={6} h={6}>
-            <Center>-</Center>
-          </Box>
-        )}
-      </VStack>
-    </Box>
-  );
-};
-
-const TrackCalendar = ({ records }: { records: Record[] }) => {
-  const now = new Date();
-  const days = eachDayOfInterval({
-    start: startOfWeek(now),
-    end: endOfWeek(now),
-  });
-  const formattedRecords: any = {};
-  for (const [key, value] of Object.entries(records)) {
-    formattedRecords[format(Number(key), "MM/dd")] = value;
-  }
-  return (
-    <Wrap>
-      {days.map((day) => {
-        const key = format(day, "MM/dd");
-        return (
-          <TrackCalendarDay
-            key={day.getTime()}
-            day={key}
-            mood={formattedRecords[key] && formattedRecords[key].mood}
-          />
-        );
-      })}
-    </Wrap>
-  );
 };
 
 const TrackToday = ({ id }: { id: string }) => {
