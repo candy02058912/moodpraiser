@@ -16,6 +16,7 @@ import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import Default from "../../components/layouts/Default/Default";
+import RedirectAuth from "../../components/templates/RedirectAuth/RedirectAuth";
 
 const CreateHabit = () => {
   const [step, setStep] = useState(1);
@@ -104,5 +105,5 @@ const CreateHabit = () => {
   );
 };
 export default withPageAuthRequired(CreateHabit, {
-  onRedirecting: () => <div>Redirecting you to the login...</div>,
+  onRedirecting: () => <RedirectAuth />,
 });
