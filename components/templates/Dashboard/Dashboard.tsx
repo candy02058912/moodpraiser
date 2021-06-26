@@ -12,7 +12,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/layout";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import Card from "../../elements/Card/Card";
 import { Habit, Mood, Record } from "../../../common/types";
 import EmojiGroup from "../../elements/EmojiGroup/EmojiGroup";
@@ -33,8 +33,10 @@ const TrackToday = ({ id }: { id: string }) => {
       mood,
       habit_id: id,
     };
-    const resp = await axios.post("/api/records", req);
+    // TODO: loading, error handling
+    await axios.post("/api/records", req);
     setStep(step + 1);
+    mutate("/api/habits");
   };
   const goToNextStep = () => {
     setStep(step + 1);

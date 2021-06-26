@@ -1,5 +1,5 @@
 import axios from "axios";
-import { reduce, sortBy } from "lodash";
+import { sortBy } from "lodash";
 import SQLString from "sqlstring";
 
 export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
@@ -11,7 +11,7 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
     query = SQLString.format(
       `
     SELECT r.mood, r.__createdtime__ as record_create_time , name, h.id, h.__createdtime__ as create_time FROM dev.habits as h
-    JOIN dev.records as r
+    LEFT JOIN dev.records as r
     ON r.habit_id = h.id
     WHERE owner = ?
     `,
@@ -34,14 +34,18 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
               value: { [key: string]: any },
               key: string
             ) => {
-              (
-                result[value.id] ||
-                (result[value.id] = {
+              if (!result[value.id]) {
+                result[value.id] = {
                   id: value.id,
                   name: value.name,
-                  records: { [value.record_create_time]: { mood: value.mood } },
-                })
-              ).records[value.record_create_time] = { mood: value.mood };
+                  records: {},
+                };
+              }
+              if (value.record_create_time) {
+                result[value.id].records[value.record_create_time] = {
+                  mood: value.mood,
+                };
+              }
               return result;
             },
             {}
