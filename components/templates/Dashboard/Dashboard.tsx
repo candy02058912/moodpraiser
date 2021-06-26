@@ -20,11 +20,7 @@ import { Collapse } from "@chakra-ui/transition";
 import { useState } from "react";
 import axios from "axios";
 import TrackCalendar from "../../modules/TrackCalendar/TrackCalendar";
-
-const fetcher = async (uri: string) => {
-  const response = await fetch(uri);
-  return response.json();
-};
+import fetcher from "../../../common/utils/fetcher";
 
 const TrackToday = ({ id }: { id: string }) => {
   const [step, setStep] = useState(0);
