@@ -24,8 +24,9 @@ import fetcher from "../../../common/utils/fetcher";
 import { Center, Spinner } from "@chakra-ui/react";
 import Reward from "react-rewards";
 import { isEmpty } from "lodash";
+import format from "date-fns/format";
 
-const TrackToday = ({ id }: { id: string }) => {
+const TrackToday = ({ id, isDone }: { id: string; isDone: boolean }) => {
   const [step, setStep] = useState(0);
   const [mood, setMood] = useState(Mood.UNKNOWN);
 
@@ -43,40 +44,44 @@ const TrackToday = ({ id }: { id: string }) => {
     };
     // TODO: loading, error handling
     await axios.post("/api/records", req);
-    setStep(2);
     await mutate("/api/habits");
+    setStep(0);
     rewardRef.current!.rewardMe();
   };
 
   return (
-    <VStack align="start">
-      <Heading as="h4" size="md">
-        Done for today?
-      </Heading>
-      <Collapse in={step < 2}>
-        <Wrap align="center">
-          <WrapItem>
-            <Text>How are you feeling?</Text>
-          </WrapItem>
-          <WrapItem>
-            <EmojiGroup handleSelect={handleSelect} />
-          </WrapItem>
-        </Wrap>
-      </Collapse>
-      <Collapse in={step === 1}>
-        <Button onClick={handleFinish}>I'm Done!</Button>
-      </Collapse>
-      <Collapse in={step === 2}>
-        <Reward ref={rewardRef} type="confetti">
-          <Text>Job well done!</Text>
-        </Reward>
-      </Collapse>
-    </VStack>
+    <Reward ref={rewardRef} type="confetti">
+      <VStack align="start">
+        {isDone ? (
+          <Text>You're on track!</Text>
+        ) : (
+          <>
+            <Heading as="h4" size="md">
+              Done for today?
+            </Heading>
+            <Collapse in={step < 2}>
+              <Wrap align="center">
+                <WrapItem>
+                  <Text>How are you feeling?</Text>
+                </WrapItem>
+                <WrapItem>
+                  <EmojiGroup handleSelect={handleSelect} />
+                </WrapItem>
+              </Wrap>
+            </Collapse>
+            <Collapse in={step === 1}>
+              <Button onClick={handleFinish}>I'm Done!</Button>
+            </Collapse>
+          </>
+        )}
+      </VStack>
+    </Reward>
   );
 };
 
 const HabitList = () => {
   const { data, error } = useSWR("/api/habits", fetcher);
+
   if (error) return <div>oops... {error.message}</div>;
   if (!data)
     return (
@@ -89,17 +94,25 @@ const HabitList = () => {
   if (isEmpty(data.habits)) {
     return <Center>No Habits. Let's create one above!</Center>;
   }
-  return data.habits.map((habit: Habit) => (
-    <Card key={habit.id} title={habit.name} data={habit} variant="habit">
-      <VStack align="start" mt={4}>
-        <TrackToday id={habit.id} />
-        <Heading as="h4" size="md">
-          This week
-        </Heading>
-        <TrackCalendar records={habit.records} />
-      </VStack>
-    </Card>
-  ));
+
+  return data.habits.map((habit: Habit) => {
+    const formattedRecords: any = {};
+    for (const [key, value] of Object.entries(habit.records)) {
+      formattedRecords[format(Number(key), "MM/dd")] = value;
+    }
+    const isDone = format(new Date(), "MM/dd") in formattedRecords;
+    return (
+      <Card key={habit.id} title={habit.name} data={habit} variant="habit">
+        <VStack align="start" mt={2}>
+          <TrackToday id={habit.id} isDone={isDone} />
+          <Heading as="h4" size="md">
+            This week
+          </Heading>
+          <TrackCalendar records={habit.records} />
+        </VStack>
+      </Card>
+    );
+  });
 };
 
 const Dashboard = () => {
