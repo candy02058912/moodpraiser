@@ -7,5 +7,21 @@ export interface DBUser {
 }
 
 export interface Habit {
+  id: string;
   name: string;
+  records: Record[];
+}
+
+export enum Mood {
+  UNKNOWN,
+  GREAT,
+  GOOD,
+  FINE,
+  MEH,
+  BAD,
+}
+export interface Record {
+  mood?: Mood;
+  uid?: string;
+  habit_id?: string;
 }
