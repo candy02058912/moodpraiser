@@ -74,7 +74,7 @@ const Dashboard = () => {
     <Box>
       <Heading>Hi {user!.name}</Heading>
       <LinkBox my={4}>
-        <Link href="/habit/new" passHref>
+        <Link href="/habits/new" passHref>
           <LinkOverlay>
             <Button
               borderWidth="1px"
