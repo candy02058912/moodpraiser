@@ -10,7 +10,7 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
   if (withRecord) {
     query = SQLString.format(
       `
-    SELECT r.mood, r.__createdtime__ as record_create_time , name, h.id, h.__createdtime__ as create_time FROM dev.habits as h
+    SELECT h.id, h.name, h.__createdtime__ as create_time, r.mood, r.__createdtime__ as record_create_time FROM dev.habits as h
     LEFT JOIN dev.records as r
     ON r.habit_id = h.id
     WHERE owner = ?
