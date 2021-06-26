@@ -21,6 +21,7 @@ import { useState } from "react";
 import axios from "axios";
 import TrackCalendar from "../../modules/TrackCalendar/TrackCalendar";
 import fetcher from "../../../common/utils/fetcher";
+import { Center, Spinner } from "@chakra-ui/react";
 
 const TrackToday = ({ id }: { id: string }) => {
   const [step, setStep] = useState(0);
@@ -62,11 +63,34 @@ const TrackToday = ({ id }: { id: string }) => {
   );
 };
 
+const HabitList = () => {
+  const { data, error, isValidating } = useSWR("/api/habits", fetcher);
+  if (error) return <div>oops... {error.message}</div>;
+  if (isValidating)
+    return (
+      <Center h="50vh">
+        <VStack>
+          <Spinner />
+          <Text>Making sure the data is new</Text>
+        </VStack>
+      </Center>
+    );
+  if (data.habits.length === 0) return <Text>No Habits</Text>;
+  return data.habits.map((habit: Habit) => (
+    <Card key={habit.id} title={habit.name} data={habit} variant="habit">
+      <VStack align="start" mt={4}>
+        <TrackToday id={habit.id} />
+        <Heading as="h4" size="md">
+          This week
+        </Heading>
+        <TrackCalendar records={habit.records} />
+      </VStack>
+    </Card>
+  ));
+};
+
 const Dashboard = () => {
   const { user } = useUser();
-  const { data, error } = useSWR("/api/habits", fetcher);
-  if (error) return <div>oops... {error.message}</div>;
-  if (data === undefined) return <div>Loading...</div>;
   return (
     <Box>
       <Heading>Hi {user!.name}</Heading>
@@ -85,21 +109,7 @@ const Dashboard = () => {
         </Link>
       </LinkBox>
       <VStack align="stretch">
-        {data.habits.length > 0 ? (
-          data.habits.map((habit: Habit) => (
-            <Card key={habit.id} title={habit.name}>
-              <VStack align="start" mt={4}>
-                <TrackToday id={habit.id} />
-                <Heading as="h4" size="md">
-                  This week
-                </Heading>
-                <TrackCalendar records={habit.records} />
-              </VStack>
-            </Card>
-          ))
-        ) : (
-          <Text>No Habits</Text>
-        )}
+        <HabitList />
       </VStack>
     </Box>
   );
