@@ -14,6 +14,7 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
     LEFT JOIN dev.records as r
     ON r.habit_id = h.id
     WHERE owner = ?
+    ORDER BY record_create_time
     `,
       [uid]
     );
@@ -54,6 +55,31 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
         );
       }
       return response.data;
+    })
+    .catch(function (error) {
+      console.log("error", error);
+    });
+};
+
+export const queryHabitByHabitID = (habitID: string) => {
+  const data = JSON.stringify({
+    operation: "sql",
+    sql: SQLString.format(
+      `
+    SELECT h.id, h.name, u.name as owner_name FROM dev.habits as h
+    JOIN dev.users as u
+    ON h.owner = u.uid
+    WHERE h.id = ?;
+    `,
+      [habitID]
+    ),
+  });
+  return axios({ data })
+    .then(function (response) {
+      if (response.data.length === 0) {
+        return {};
+      }
+      return response.data[0];
     })
     .catch(function (error) {
       console.log("error", error);

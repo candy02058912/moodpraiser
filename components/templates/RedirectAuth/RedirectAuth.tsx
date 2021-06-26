@@ -5,8 +5,8 @@ import Default from "../../layouts/Default/Default";
 const RedirectAuth = () => {
   return (
     <Default>
-      <Center h="30vh">
-        <Spinner size="xl" />
+      <Center h="50vh">
+        <Spinner />
       </Center>
     </Default>
   );

@@ -15,6 +15,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
+import { getPraiserLink } from "../../common/utils/praiser";
 import Default from "../../components/layouts/Default/Default";
 import RedirectAuth from "../../components/templates/RedirectAuth/RedirectAuth";
 
@@ -23,12 +24,12 @@ const CreateHabit = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [name, setName] = useState("");
   const [habitID, setHabitID] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState<Location | null>(null);
   const [loadingStep, setLoadingStep] = useState(0);
   const linkRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setLocation(window.location.origin);
+    setLocation(window.location);
   }, []);
 
   const copyToClipboard = () => {
@@ -82,7 +83,7 @@ const CreateHabit = () => {
               </Heading>
               <Input
                 ref={linkRef}
-                value={`${location}/praise/${habitID}`}
+                value={location ? getPraiserLink(location, habitID) : ""}
                 readOnly
               />
               <Button onClick={copyToClipboard}>
