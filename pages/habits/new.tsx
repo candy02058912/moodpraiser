@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/dist/frontend";
 import { Button } from "@chakra-ui/button";
 import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
@@ -102,4 +103,6 @@ const CreateHabit = () => {
     </Default>
   );
 };
-export default CreateHabit;
+export default withPageAuthRequired(CreateHabit, {
+  onRedirecting: () => <div>Redirecting you to the login...</div>,
+});

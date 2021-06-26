@@ -13,7 +13,6 @@ import {
   WrapItem,
 } from "@chakra-ui/layout";
 import useSWR from "swr";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Card from "../../elements/Card/Card";
 import { Habit, Mood, Record } from "../../../common/types";
 import EmojiGroup from "../../elements/EmojiGroup/EmojiGroup";
@@ -107,4 +106,4 @@ const Dashboard = () => {
     </Box>
   );
 };
-export default withPageAuthRequired(Dashboard);
+export default Dashboard;
