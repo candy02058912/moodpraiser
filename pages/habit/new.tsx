@@ -13,6 +13,7 @@ import { Collapse } from "@chakra-ui/transition";
 import axios from "axios";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
+import { useEffect } from "react";
 import Default from "../../components/layouts/Default/Default";
 
 const CreateHabit = () => {
@@ -20,8 +21,14 @@ const CreateHabit = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [name, setName] = useState("");
   const [habitID, setHabitID] = useState("");
+  const [location, setLocation] = useState("");
   const [loadingStep, setLoadingStep] = useState(0);
   const linkRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setLocation(window.location.origin);
+  }, []);
+
   const copyToClipboard = () => {
     linkRef.current!.select();
     document.execCommand("copy");
@@ -73,7 +80,7 @@ const CreateHabit = () => {
               </Heading>
               <Input
                 ref={linkRef}
-                value={`${window.location.origin}/praise/${habitID}`}
+                value={`${location}/praise/${habitID}`}
                 readOnly
               />
               <Button onClick={copyToClipboard}>
