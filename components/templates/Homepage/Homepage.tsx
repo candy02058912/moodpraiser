@@ -26,7 +26,10 @@ const HomePage = () => {
 
   return (
     <Landing>
-      <Box py="24vh" backgroundColor={colorMode === "light" ? "#FFC554" : ""}>
+      <Box
+        py={["12vh", "24vh"]}
+        backgroundColor={colorMode === "light" ? "#FFC554" : ""}
+      >
         <Container>
           <VStack spacing={8}>
             <Box>
@@ -141,7 +144,7 @@ const HomePage = () => {
           </SimpleGrid>
         </Container>
       </Box>
-      <Box py={24} backgroundColor="#FFC554">
+      <Box py={["12vh", "24vh"]} backgroundColor="#FFC554">
         <Container>
           <Heading as="h2" size="2xl" textAlign="center" color="black">
             Built with
