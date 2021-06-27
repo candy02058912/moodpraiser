@@ -165,7 +165,7 @@ const HomePage = () => {
           <Heading as="h2" size="2xl" textAlign="center" color="black">
             Built with
           </Heading>
-          <Wrap mt={20} spacing="60px" justify="center">
+          <Wrap mt={20} spacing={["30px", "60px"]} justify="center">
             <WrapItem>
               <Center w="150px" h="50px">
                 <Image src="https://res.cloudinary.com/candy-tsai/image/upload/v1624780492/icons/414px-Nextjs-logo.svg.png" />
