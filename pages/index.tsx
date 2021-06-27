@@ -3,7 +3,6 @@ import { Center } from "@chakra-ui/layout";
 import HomePage from "../components/templates/Homepage/Homepage";
 import Dashboard from "../components/templates/Dashboard/Dashboard";
 import { Spinner } from "@chakra-ui/spinner";
-import Default from "../components/layouts/Default/Default";
 
 const Main = () => {
   const { user, error, isLoading } = useUser();
@@ -24,9 +23,5 @@ const Main = () => {
 };
 
 export default function Home() {
-  return (
-    <Default>
-      <Main />
-    </Default>
-  );
+  return <Main />;
 }

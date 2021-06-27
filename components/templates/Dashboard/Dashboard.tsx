@@ -25,6 +25,7 @@ import { Center, Spinner } from "@chakra-ui/react";
 import Reward from "react-rewards";
 import { isEmpty } from "lodash";
 import format from "date-fns/format";
+import Default from "../../layouts/Default/Default";
 
 const TrackToday = ({ id, isDone }: { id: string; isDone: boolean }) => {
   const [step, setStep] = useState(0);
@@ -118,26 +119,28 @@ const HabitList = () => {
 const Dashboard = () => {
   const { user } = useUser();
   return (
-    <Box>
-      <Heading>Hi {user!.name}</Heading>
-      <LinkBox my={4}>
-        <Link href="/habits/new" passHref>
-          <LinkOverlay>
-            <Button
-              borderWidth="1px"
-              borderRadius="lg"
-              variant="ghost"
-              isFullWidth
-            >
-              <AddIcon /> <Text ml={1}>Add a new habit</Text>
-            </Button>
-          </LinkOverlay>
-        </Link>
-      </LinkBox>
-      <VStack align="stretch">
-        <HabitList />
-      </VStack>
-    </Box>
+    <Default>
+      <Box>
+        <Heading>Hi {user!.name}</Heading>
+        <LinkBox my={4}>
+          <Link href="/habits/new" passHref>
+            <LinkOverlay>
+              <Button
+                borderWidth="1px"
+                borderRadius="lg"
+                variant="ghost"
+                isFullWidth
+              >
+                <AddIcon /> <Text ml={1}>Add a new habit</Text>
+              </Button>
+            </LinkOverlay>
+          </Link>
+        </LinkBox>
+        <VStack align="stretch">
+          <HabitList />
+        </VStack>
+      </Box>
+    </Default>
   );
 };
 export default Dashboard;
