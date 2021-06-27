@@ -41,6 +41,7 @@ const HomePage = () => {
                 size="3xl"
                 textAlign="center"
                 color={colorMode === "light" ? "blue.700" : "#FFC554"}
+                mt={[4, 6]}
               >
                 <TextLoop>
                   <Center w="50vw">habits</Center>
@@ -83,64 +84,72 @@ const HomePage = () => {
           </Heading>
         </Container>
         <Container maxW="container.lg">
-          <SimpleGrid
-            columns={[1, null, 3]}
-            spacingX="40px"
-            spacingY="20px"
-            mt={20}
-          >
-            <Box p={4} display={{ md: "flex" }}>
-              <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
-                <RepeatClockIcon w={8} h={8} />
-                <Text
-                  mt={1}
-                  display="block"
-                  fontSize="2xl"
-                  lineHeight="normal"
-                  fontWeight="semibold"
-                >
-                  Habbit
-                </Text>
+          <SimpleGrid columns={{ base: 1, md: 2 }} mt={20}>
+            <SimpleGrid columns={1} spacingX="40px" spacingY="20px">
+              <Box p={4} display={{ md: "flex" }}>
+                <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
+                  <VStack align={{ base: "center", md: "start" }}>
+                    <RepeatClockIcon w={8} h={8} />
+                    <Text
+                      mt={1}
+                      display="block"
+                      fontSize="2xl"
+                      lineHeight="normal"
+                      fontWeight="semibold"
+                    >
+                      Habbit
+                    </Text>
 
-                <Text mt={2} color="gray.500">
-                  Make sure you complete the habbit you want to obtain.
-                </Text>
+                    <Text mt={2} color="gray.500">
+                      Make sure you complete the habbit you want to obtain.
+                    </Text>
+                  </VStack>
+                </Box>
               </Box>
-            </Box>
-            <Box p={4} display={{ md: "flex" }}>
-              <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
-                <Icon as={FaTheaterMasks} w={8} h={8} />
-                <Text
-                  mt={1}
-                  display="block"
-                  fontSize="2xl"
-                  lineHeight="normal"
-                  fontWeight="semibold"
-                >
-                  Mood
-                </Text>
-                <Text mt={2} color="gray.500">
-                  Track your ups and downs during the process.
-                </Text>
+              <Box p={4} display={{ md: "flex" }}>
+                <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
+                  <VStack align={{ base: "center", md: "start" }}>
+                    <Icon as={FaTheaterMasks} w={8} h={8} />
+                    <Text
+                      mt={1}
+                      display="block"
+                      fontSize="2xl"
+                      lineHeight="normal"
+                      fontWeight="semibold"
+                    >
+                      Mood
+                    </Text>
+                    <Text mt={2} color="gray.500">
+                      Track your ups and downs during the process.
+                    </Text>
+                  </VStack>
+                </Box>
               </Box>
-            </Box>
-            <Box p={4} display={{ md: "flex" }}>
-              <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
-                <StarIcon w={8} h={8} />
-                <Text
-                  mt={1}
-                  display="block"
-                  fontSize="2xl"
-                  lineHeight="normal"
-                  fontWeight="semibold"
-                >
-                  Praise
-                </Text>
-                <Text mt={2} color="gray.500">
-                  Ask for praises and keep you and your friends motivated!
-                </Text>
+              <Box p={4} display={{ md: "flex" }}>
+                <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
+                  <VStack align={{ base: "center", md: "start" }}>
+                    <StarIcon w={8} h={8} />
+                    <Text
+                      mt={1}
+                      display="block"
+                      fontSize="2xl"
+                      lineHeight="normal"
+                      fontWeight="semibold"
+                    >
+                      Praise
+                    </Text>
+                    <Text mt={2} color="gray.500">
+                      Ask for praises and keep you and your friends motivated!
+                    </Text>
+                  </VStack>
+                </Box>
               </Box>
-            </Box>
+            </SimpleGrid>
+            <Center mt={{ base: 4, md: 0 }}>
+              <Center boxSize="md">
+                <Image shadow="lg" src="/landing.jpg" />
+              </Center>
+            </Center>
           </SimpleGrid>
         </Container>
       </Box>
