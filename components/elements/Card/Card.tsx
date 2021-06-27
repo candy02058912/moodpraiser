@@ -22,7 +22,7 @@ const Card = ({ title, children, variant, data }: Props) => {
           <Tooltip
             label={hasCopied ? "Copied!" : "Share praiser link"}
             aria-label={hasCopied ? "Copied!" : "Share praiser link"}
-            closeOnClick={false}
+            closeDelay={500}
           >
             <CopyIcon ml={2} w={6} h={6} cursor="pointer" onClick={onCopy} />
           </Tooltip>
