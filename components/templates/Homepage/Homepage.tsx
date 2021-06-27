@@ -68,7 +68,7 @@ const HomePage = () => {
               </Text>
             </Heading>
             <LinkBox>
-              <LinkOverlay href="/api/auth/login">
+              <LinkOverlay href="/dashboard">
                 <Button size="lg" colorScheme="facebook">
                   Get Started!
                 </Button>

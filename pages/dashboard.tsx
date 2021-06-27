@@ -13,19 +13,20 @@ import {
   WrapItem,
 } from "@chakra-ui/layout";
 import useSWR, { mutate } from "swr";
-import Card from "../../elements/Card/Card";
-import { Habit, Mood, Record } from "../../../common/types";
-import EmojiGroup from "../../elements/EmojiGroup/EmojiGroup";
+import Card from "../components/elements/Card/Card";
+import { Habit, Mood, Record } from "../common/types";
+import EmojiGroup from "../components/elements/EmojiGroup/EmojiGroup";
 import { Collapse } from "@chakra-ui/transition";
 import { useRef, useState } from "react";
 import axios from "axios";
-import TrackCalendar from "../../modules/TrackCalendar/TrackCalendar";
-import fetcher from "../../../common/utils/fetcher";
+import TrackCalendar from "../components/modules/TrackCalendar/TrackCalendar";
+import fetcher from "../common/utils/fetcher";
 import { Center, Spinner } from "@chakra-ui/react";
 import Reward from "react-rewards";
 import { isEmpty } from "lodash";
 import format from "date-fns/format";
-import Default from "../../layouts/Default/Default";
+import Default from "../components/layouts/Default/Default";
+import withCustomAuth from "../components/hoc/with-custom-auth";
 
 const TrackToday = ({ id, isDone }: { id: string; isDone: boolean }) => {
   const [step, setStep] = useState(0);
@@ -118,10 +119,17 @@ const HabitList = () => {
 
 const Dashboard = () => {
   const { user } = useUser();
+  if (!user) {
+    return (
+      <Center height="50vh">
+        <Spinner />
+      </Center>
+    );
+  }
   return (
     <Default>
       <Box>
-        <Heading>Hi {user!.name}</Heading>
+        <Heading>Hi {user.name}</Heading>
         <LinkBox my={4}>
           <Link href="/habits/new" passHref>
             <LinkOverlay>
@@ -143,4 +151,4 @@ const Dashboard = () => {
     </Default>
   );
 };
-export default Dashboard;
+export default withCustomAuth(Dashboard);

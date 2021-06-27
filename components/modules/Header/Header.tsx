@@ -21,7 +21,7 @@ const Header = () => {
       <HStack>
         {!user ? (
           <LinkBox>
-            <LinkOverlay href="/api/auth/login">
+            <LinkOverlay href="/dashboard">
               <Button>Login</Button>
             </LinkOverlay>
           </LinkBox>
