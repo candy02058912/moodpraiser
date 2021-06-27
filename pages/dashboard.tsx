@@ -108,7 +108,7 @@ const HabitList = () => {
         <VStack align="start" mt={2}>
           <TrackToday id={habit.id} isDone={isDone} />
           <Heading as="h4" size="md">
-            This week
+            Past 7 days
           </Heading>
           <TrackCalendar records={habit.records} />
         </VStack>

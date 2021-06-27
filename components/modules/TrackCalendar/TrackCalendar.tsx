@@ -1,5 +1,6 @@
 import { Box, Center, Text, VStack, Wrap } from "@chakra-ui/react";
-import { endOfWeek, eachDayOfInterval, startOfWeek } from "date-fns";
+import { eachDayOfInterval, subDays } from "date-fns";
+import { addDays } from "date-fns/esm";
 import format from "date-fns/format";
 import { Mood, Record } from "../../../common/types";
 import MoodIcon from "../../elements/EmojiGroup/MoodIcon";
@@ -33,8 +34,8 @@ type Props = {
 const TrackCalendar = ({ records }: Props) => {
   const now = new Date();
   const days = eachDayOfInterval({
-    start: startOfWeek(now),
-    end: endOfWeek(now),
+    start: subDays(now, 6),
+    end: now,
   });
   const formattedRecords: any = {};
   for (const [key, value] of Object.entries(records)) {
@@ -42,12 +43,12 @@ const TrackCalendar = ({ records }: Props) => {
   }
   return (
     <Wrap>
-      {days.map((day) => {
+      {days.map((day, idx) => {
         const key = format(day, "MM/dd");
         return (
           <TrackCalendarDay
             key={day.getTime()}
-            day={key}
+            day={idx === 6 ? "Today" : key}
             mood={formattedRecords[key] && formattedRecords[key].mood}
           />
         );
