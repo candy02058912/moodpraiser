@@ -33,7 +33,14 @@ const HomePage = () => {
         <Container>
           <VStack spacing={8}>
             <Box>
-              <Heading as="h2" size="4xl" textAlign="center">
+              <Heading
+                as="h2"
+                size="4xl"
+                textAlign="center"
+                bgGradient="linear(to-l, #7928CA,#FF0080)"
+                bgClip="text"
+                pb={2}
+              >
                 Keep track of your
               </Heading>
               <Heading
@@ -41,7 +48,7 @@ const HomePage = () => {
                 size="3xl"
                 textAlign="center"
                 color={colorMode === "light" ? "blue.700" : "#FFC554"}
-                mt={[4, 6]}
+                mt={[2, 4]}
               >
                 <TextLoop>
                   <Center w="50vw">habits</Center>
