@@ -12,6 +12,16 @@ export default function Landing({ children }: Props) {
       <Head>
         <title>Moodpraiser</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          property="og:description"
+          content="MoodPraiser is a simple, useful and fun habit tracker that keeps you and your friends accountable for each other by giving priases y'all deserve to reach your goal!"
+        />
+        <meta
+          property="og:image"
+          content={
+            "https://res.cloudinary.com/candy-tsai/image/upload/v1624694409/moodpraiser_vvba5u.png"
+          }
+        />
       </Head>
       <Container maxW="container.lg">
         <Header />
