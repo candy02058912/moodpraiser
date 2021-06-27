@@ -186,6 +186,11 @@ const HomePage = () => {
                 <Image src="https://res.cloudinary.com/candy-tsai/image/upload/v1624781071/icons/logo-dark.png" />
               </Center>
             </WrapItem>
+            <WrapItem>
+              <Center w="150px" h="50px">
+                <Image src="https://res.cloudinary.com/candy-tsai/image/upload/v1624811446/icons/harperdb-logo.png" />
+              </Center>
+            </WrapItem>
           </Wrap>
         </Container>
       </Box>
