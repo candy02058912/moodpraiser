@@ -19,7 +19,7 @@ export default function Landing({ children }: Props) {
         <meta
           property="og:image"
           content={
-            "https://res.cloudinary.com/candy-tsai/image/upload/v1624694409/moodpraiser_vvba5u.png"
+            "https://res.cloudinary.com/candy-tsai/image/upload/v1624694336/moodpraiser_favicon.png"
           }
         />
       </Head>
