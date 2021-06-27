@@ -10,7 +10,7 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
   if (withRecord) {
     query = SQLString.format(
       `
-    SELECT h.id, h.name, h.__createdtime__ as create_time, r.mood, r.__createdtime__ as record_create_time FROM dev.habits as h
+    SELECT h.id, h.name, h.__createdtime__ as create_time, h.completed, h.praised, r.mood, r.__createdtime__ as record_create_time FROM dev.habits as h
     LEFT JOIN dev.records as r
     ON r.habit_id = h.id
     WHERE owner = ?
@@ -39,6 +39,8 @@ export const queryHabitsByUID = (uid: string, { withRecord = false } = {}) => {
                 result[value.id] = {
                   id: value.id,
                   name: value.name,
+                  completed: value.completed,
+                  praised: value.praised,
                   records: {},
                 };
               }
@@ -90,9 +92,39 @@ export const createHabit = (name: string, uid: string) => {
   const data = JSON.stringify({
     operation: "sql",
     sql: SQLString.format(
-      `INSERT INTO dev.habits (name, owner) VALUES (?, ?)`,
+      `INSERT INTO dev.habits (name, owner, completed, praised) VALUES (?, ?, 0, 0)`,
       [name, uid]
     ),
+  });
+
+  return axios({ data })
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log("error", error);
+    });
+};
+
+export const updateHabit = async (
+  habitID: string,
+  type: "praised" | "completed"
+) => {
+  let query = SQLString.format(`SELECT ${type} FROM dev.habits WHERE id = ?`, [
+    habitID,
+  ]);
+  let data = JSON.stringify({
+    operation: "sql",
+    sql: query,
+  });
+  let resp = await axios({ data });
+  const updateValue = (resp.data[0][type] || 0) + 1;
+  data = JSON.stringify({
+    operation: "sql",
+    sql: SQLString.format(`UPDATE dev.habits SET ${type} = ? WHERE id = ?`, [
+      updateValue,
+      habitID,
+    ]),
   });
 
   return axios({ data })

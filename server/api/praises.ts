@@ -1,11 +1,12 @@
 import axios from "axios";
+import { startOfToday } from "date-fns";
 
 export const queryPraise = (habitID: string, uid: string) => {
   var data = JSON.stringify({
     operation: "search_by_hash",
     schema: "dev",
     table: "praises",
-    hash_values: [`${uid}-${habitID}`],
+    hash_values: [`${startOfToday().getTime()}-${uid}-${habitID}`],
     get_attributes: ["id"],
   });
 
@@ -25,7 +26,7 @@ export const createPraise = (habitID: string, uid: string) => {
     table: "praises",
     records: [
       {
-        id: `${uid}-${habitID}`,
+        id: `${startOfToday().getTime()}-${uid}-${habitID}`,
         habit_id: habitID,
         uid: uid,
       },

@@ -1,5 +1,8 @@
 import { getSession, Session, withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { queryHabitByHabitID } from "../../../../server/api/habits";
+import {
+  queryHabitByHabitID,
+  updateHabit,
+} from "../../../../server/api/habits";
 import { createPraise } from "../../../../server/api/praises";
 
 export default withApiAuthRequired(async function handler(req, res) {
@@ -11,6 +14,7 @@ export default withApiAuthRequired(async function handler(req, res) {
       res.json(habit);
       break;
     case "POST":
+      await updateHabit(habitID, "praised");
       const resp = await createPraise(habitID, user.uid);
       res.json({ id: resp.upserted_hashes[0] });
       break;

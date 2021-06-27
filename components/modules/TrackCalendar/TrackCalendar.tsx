@@ -1,6 +1,13 @@
-import { Box, Center, Text, VStack, Wrap } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Center,
+  Text,
+  Tooltip,
+  VStack,
+  Wrap,
+} from "@chakra-ui/react";
 import { eachDayOfInterval, subDays } from "date-fns";
-import { addDays } from "date-fns/esm";
 import format from "date-fns/format";
 import { Mood, Record } from "../../../common/types";
 import MoodIcon from "../../elements/EmojiGroup/MoodIcon";

@@ -10,6 +10,8 @@ export interface Habit {
   id: string;
   name: string;
   records: Record[];
+  completed: number;
+  praised: number;
 }
 
 export enum Mood {
@@ -23,5 +25,5 @@ export enum Mood {
 export interface Record {
   mood?: Mood;
   uid?: string;
-  habit_id?: string;
+  habit_id: string;
 }

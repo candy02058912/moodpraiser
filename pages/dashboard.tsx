@@ -21,7 +21,15 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import TrackCalendar from "../components/modules/TrackCalendar/TrackCalendar";
 import fetcher from "../common/utils/fetcher";
-import { Center, Spinner } from "@chakra-ui/react";
+import {
+  Center,
+  SimpleGrid,
+  Spinner,
+  Stat,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+} from "@chakra-ui/react";
 import Reward from "react-rewards";
 import { isEmpty } from "lodash";
 import format from "date-fns/format";
@@ -105,13 +113,35 @@ const HabitList = () => {
     const isDone = format(new Date(), "MM/dd") in formattedRecords;
     return (
       <Card key={habit.id} title={habit.name} data={habit} variant="habit">
-        <VStack align="start" mt={2}>
-          <TrackToday id={habit.id} isDone={isDone} />
-          <Heading as="h4" size="md">
-            Past 7 days
-          </Heading>
-          <TrackCalendar records={habit.records} />
-        </VStack>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing="10px">
+          <VStack align="start" mt={2}>
+            <TrackToday id={habit.id} isDone={isDone} />
+            <Heading as="h4" size="md">
+              Past 7 days
+            </Heading>
+            <TrackCalendar records={habit.records} />
+          </VStack>
+          <SimpleGrid columns={2} spacing="10px">
+            <Center textAlign="center">
+              <Center borderRadius="xl" borderWidth="1px" boxSize="150px">
+                <Stat>
+                  <StatLabel>Completed</StatLabel>
+                  <StatNumber>{habit.completed}</StatNumber>
+                  <StatHelpText>times</StatHelpText>
+                </Stat>
+              </Center>
+            </Center>
+            <Center textAlign="center">
+              <Center borderRadius="xl" borderWidth="1px" boxSize="150px">
+                <Stat>
+                  <StatLabel>Praised</StatLabel>
+                  <StatNumber>{habit.praised}</StatNumber>
+                  <StatHelpText>times</StatHelpText>
+                </Stat>
+              </Center>
+            </Center>
+          </SimpleGrid>
+        </SimpleGrid>
       </Card>
     );
   });
