@@ -4,14 +4,14 @@ Live Demo: https://moodpraiser.candys.page
 
 MoodPraiser is a simple, useful and fun habit tracker that keeps you and your friends accountable for each other by giving priases y'all deserve to **reach your goal**!
 
-Check out the [blog post](https://) to get the whole story behind the project!
+Check out the [blog post](https://candys.page/moodpraiser-fun-habit-tracker-to-keep-everyone-accountable) to get the whole story behind the project!
 
 ## Running your own MoodPraiser
 
 ### Prerequisites
 
-* Auth0 account - Check [this article](https://auth0.com/docs/quickstart/webapp/nextjs/01-login#configure-the-sdk) on how to fill out the Auth0 environment variables
-* HarperDB account
+- Auth0 account - Check [this article](https://auth0.com/docs/quickstart/webapp/nextjs/01-login#configure-the-sdk) on how to fill out the Auth0 environment variables
+- HarperDB account
 
 Please create a `.env.local` in the project root with the following fields filled out:
 
@@ -27,8 +27,9 @@ HARPERDB_URL=
 
 ### Step 0: Setup the HarperDB database
 
-* Create a schema called dev
-* Create the tables and columns as the following
+- Create a schema called dev
+- Create the tables and columns as the following
+  ![MoodPraiser ERD](ERD.png)
 
 ### Step 1: Install dependencies
 
@@ -51,3 +52,7 @@ yarn dev
 ### Step 3: Check out MoodPraiser
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Contributing
+
+MoodPraiser is an open source project so you're more than welcome to contribute ideas, report issues or send in pull requests!
