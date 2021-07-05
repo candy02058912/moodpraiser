@@ -135,3 +135,21 @@ export const updateHabit = async (
       console.log("error", error);
     });
 };
+
+export const deleteHabit = async (habitID: string, uid: string) => {
+  const data = JSON.stringify({
+    operation: "sql",
+    sql: SQLString.format(`DELETE FROM dev.habits WHERE id = ? AND owner = ?`, [
+      habitID,
+      uid,
+    ]),
+  });
+
+  return axios({ data })
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log("error", error);
+    });
+};

@@ -105,6 +105,12 @@ const HabitList = () => {
     return <Center>No Habits. Let's create one above!</Center>;
   }
 
+  const handleDelete = (id: string) => async () => {
+    const resp = await axios.delete(`/api/habits/${id}`);
+    console.log(resp);
+    mutate("/api/habits");
+  };
+
   return data.habits.map((habit: Habit) => {
     const formattedRecords: any = {};
     for (const [key, value] of Object.entries(habit.records)) {
@@ -112,7 +118,13 @@ const HabitList = () => {
     }
     const isDone = format(new Date(), "MM/dd") in formattedRecords;
     return (
-      <Card key={habit.id} title={habit.name} data={habit} variant="habit">
+      <Card
+        key={habit.id}
+        title={habit.name}
+        data={habit}
+        variant="habit"
+        onDelete={handleDelete}
+      >
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing="10px">
           <VStack align="start" mt={2}>
             <TrackToday id={habit.id} isDone={isDone} />
