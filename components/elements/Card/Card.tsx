@@ -1,7 +1,6 @@
 import { Box, Heading } from "@chakra-ui/layout";
 import {
   PopoverBody,
-  HStack,
   Popover,
   PopoverArrow,
   PopoverContent,
@@ -9,6 +8,8 @@ import {
   Tooltip,
   useClipboard,
   Button,
+  Flex,
+  HStack,
 } from "@chakra-ui/react";
 import { CopyIcon, DeleteIcon } from "@chakra-ui/icons";
 import { getPraiserLink } from "../../../common/utils/praiser";
@@ -27,12 +28,10 @@ const Card = ({ title, children, variant, data, onDelete }: Props) => {
   );
   return (
     <Box borderWidth="1px" borderRadius="lg" p={2}>
-      <HStack>
-        <Heading width="80%" size="lg">
-          {title}
-        </Heading>
+      <Flex wrap="wrap">
+        <Heading size="lg">{title}</Heading>
         {variant === "habit" && (
-          <>
+          <HStack>
             <Tooltip
               label={hasCopied ? "Copied!" : "Share praiser link"}
               aria-label={hasCopied ? "Copied!" : "Share praiser link"}
@@ -59,9 +58,9 @@ const Card = ({ title, children, variant, data, onDelete }: Props) => {
                 </PopoverBody>
               </PopoverContent>
             </Popover>
-          </>
+          </HStack>
         )}
-      </HStack>
+      </Flex>
       {children}
     </Box>
   );
